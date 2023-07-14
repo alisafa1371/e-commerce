@@ -1,5 +1,4 @@
 import ProductCard from "src/components/ProductCard";
-import { stripe } from "src/utils/stripe";
 export default function Home({ products }) {
   return (
     <div className="container xl:max-w-screen-xl mx-auto py-12 px-6">
@@ -15,22 +14,12 @@ export default function Home({ products }) {
 }
 
 export const getStaticProps = async () => {
-  const inventory = await stripe.products.list({
-    expand: ["data.default_price"], //price is not by default an attribute in product obj so we have to get it like this
-    limit: 8,
-  });
-
+  // the product data is fetching from postman instead of stripe
   try {
-    const products = inventory.data.map((product) => {
-      const price = product.default_price;
-      return {
-        name: product.name,
-        id: product.id,
-        currency: price.currency,
-        price: price.unit_amount,
-        image: product.images[0],
-      };
-    });
+    const response = await fetch(
+      "https://59ad15ec-7e0a-4806-aece-fdfc109e1111.mock.pstmn.io/getProducts2"
+    );
+    const products = await response.json();
 
     return {
       props: {

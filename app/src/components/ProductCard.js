@@ -1,16 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import Rating from "./Rating";
-import { formatCurrencyString, useShoppingCart } from "use-shopping-cart";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { cartAction } from "../../store/cartSlice";
+import { useContext } from "react";
+import CartContext from "../context/CartContext";
 
+//TODO delete all stripe and useShoppingCart from app and package.json
 function ProductCard({ product, index }) {
-  const { addItem } = useShoppingCart();
-
+  const { addItemToCart } = useContext(CartContext);
   const addItemHandler = (e) => {
     e.preventDefault();
     const id = toast.loading("Adding 1 item");
-    addItem(product);
+    addItemToCart(product);
     toast.success(`${product.name} added `, { id });
   };
   return (
@@ -24,7 +27,8 @@ function ProductCard({ product, index }) {
           alt={product.name}
           src={product.image}
           sizes="100%"
-          priority={index === 0} // if its the first item from product array load the image immediately (this is for the error : "image was detected as the Largest Contentful Paint.....")
+          placeholder="blur" //this is for nextJs image priority error
+          blurDataURL={product.image} //this is for nextJs image priority error
           style={{
             objectFit: "contain", // for preventing images from starch
           }}
@@ -33,12 +37,12 @@ function ProductCard({ product, index }) {
       </div>
       <div className="p-6 bg-white h-full">
         <p className="font-semibold text-lg">{product.name}</p>
-        <Rating />
+        <Rating startsAmount={product.rating} id={product.id} />
         <div className="mt-4 flex items-center justify-between gap-5">
           <div>
             <p className="text-gray-500">Price</p>
             <p className="text-lg font-semibold">
-              {formatCurrencyString({ value: product.price, currency: "USD" })}
+              {/* {formatCurrencyString({ value: product.price, currency: "USD" })} */}
             </p>
           </div>
 
