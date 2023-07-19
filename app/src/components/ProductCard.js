@@ -7,7 +7,6 @@ import { cartAction } from "../../store/cartSlice";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
 
-//TODO delete all stripe and useShoppingCart from app and package.json
 function ProductCard({ product, index }) {
   const { addItemToCart } = useContext(CartContext);
   const addItemHandler = (e) => {
@@ -18,7 +17,7 @@ function ProductCard({ product, index }) {
   };
   return (
     <Link
-      href={`/products/${product.id}`}
+      href={`/products/${product.id}`} // by using <Link> component and href we are redirecting user to {`/products/${product.id}`} also in pages folder we have product folder and inside it we have [id].js file
       className="border-2 rounded-md group overflow-hidden"
     >
       <div className="relative w-full h-64">
