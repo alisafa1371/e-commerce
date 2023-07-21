@@ -6,6 +6,8 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    //only generating the CSS used in your project.
+    mode: "jit",
     // here we can add custom style which is extended so we have all custom styles and all styles of tailwind
     extend: {
       //here we can add custom font family. for sass key we added a variable we made in Layout.js
@@ -14,7 +16,7 @@ module.exports = {
       },
       //here we can add custom colors to use in background and other places
       colors: {
-        "main-bg-color": "#eef2ff",
+        "main-bg-color": "#F7F7F7",
       },
     },
   },

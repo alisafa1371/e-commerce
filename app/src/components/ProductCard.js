@@ -6,19 +6,19 @@ import { useDispatch } from "react-redux";
 import { cartAction } from "../../store/cartSlice";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
+import { currencyFormat } from "simple-currency-format";
 
-//TODO delete all stripe and useShoppingCart from app and package.json
 function ProductCard({ product, index }) {
   const { addItemToCart } = useContext(CartContext);
   const addItemHandler = (e) => {
     e.preventDefault();
-    const id = toast.loading("Adding 1 item");
+    const id = toast.loading(`Adding 1 item`);
     addItemToCart(product);
-    toast.success(`${product.name} added `, { id });
+    toast.success(`${product.name} added `, { id, duration: 1500 });
   };
   return (
     <Link
-      href={`/products/${product.id}`}
+      href={`/products/${product.id}`} // by using <Link> component and href we are redirecting user to {`/products/${product.id}`} also in pages folder we have product folder and inside it we have [id].js file
       className="border-2 rounded-md group overflow-hidden"
     >
       <div className="relative w-full h-64">
@@ -42,7 +42,11 @@ function ProductCard({ product, index }) {
           <div>
             <p className="text-gray-500">Price</p>
             <p className="text-lg font-semibold">
-              {/* {formatCurrencyString({ value: product.price, currency: "USD" })} */}
+              {currencyFormat(
+                product.price,
+                "en-US",
+                product?.currency.toUpperCase()
+              )}
             </p>
           </div>
 
