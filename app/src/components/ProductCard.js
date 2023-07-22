@@ -6,14 +6,15 @@ import { useDispatch } from "react-redux";
 import { cartAction } from "../../store/cartSlice";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
+import { currencyFormat } from "simple-currency-format";
 
 function ProductCard({ product, index }) {
   const { addItemToCart } = useContext(CartContext);
   const addItemHandler = (e) => {
     e.preventDefault();
-    const id = toast.loading("Adding 1 item");
+    const id = toast.loading(`Adding 1 item`);
     addItemToCart(product);
-    toast.success(`${product.name} added `, { id });
+    toast.success(`${product.name} added `, { id, duration: 1500 });
   };
   return (
     <Link
@@ -41,7 +42,11 @@ function ProductCard({ product, index }) {
           <div>
             <p className="text-gray-500">Price</p>
             <p className="text-lg font-semibold">
-              {/* {formatCurrencyString({ value: product.price, currency: "USD" })} */}
+              {currencyFormat(
+                product.price,
+                "en-US",
+                product?.currency.toUpperCase()
+              )}
             </p>
           </div>
 

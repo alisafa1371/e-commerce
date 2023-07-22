@@ -19,5 +19,5 @@ Replace it with
 // }
 
 {
-  "extends": ["next"]
+  "extends": ["next", "prettier"]
 }
