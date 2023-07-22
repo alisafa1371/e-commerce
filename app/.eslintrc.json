@@ -1,0 +1,23 @@
+/* I had this error :
+Parsing error: Cannot find module 'next/babel'
+In your NextJS Project you have this file , named .eslintrc.json, In this file 
+
+You have following code
+
+{
+  "extends": "next/core-web-vitals"
+}
+Replace it with 
+
+{
+  "extends": ["next"]
+}
+*/
+
+// {
+//   "extends": "next/core-web-vitals"
+// }
+
+{
+  "extends": ["next", "prettier"]
+}

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* adding custom class to components */
+@layer components {
+  .rating:hover input {
+    --tw-bg-opacity: 1 !important;
+    transition: all 0.3s;
+  }
+  .rating input:hover ~ input {
+    --tw-bg-opacity: 0.2 !important;
+  }
+}
